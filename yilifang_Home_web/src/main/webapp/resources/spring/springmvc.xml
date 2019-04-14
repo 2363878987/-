@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/mvc
+		 http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		 http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context.xsd
+         http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+
+
+	<!-- 该标签就包含了注解的处理器适配器和处理器映射器 -->
+	<mvc:annotation-driven/>
+	<mvc:resources mapping="/*" location="/"/>
+
+	<!-- 扫包，扫描包下面所有类的spring的注解 Controller、requestMapping等等 -->
+	<context:component-scan base-package="com.alibaba.Home.web"></context:component-scan>
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 配置前缀 -->
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<!-- 配置后缀 -->
+		<property name="suffix" value=".jsp" />
+	</bean>
+<mvc:resources mapping="/css" location="/css/**"/>
+<mvc:resources mapping="/js" location="/js/**"/>
+
+
+<dubbo:application name = "manager_web"/>
+    <dubbo:registry protocol="zookeeper"
+          address="192.168.25.129:2181"/>
+	<dubbo:reference interface="com.alibaba.content.interfaces.TbContentInterfaces" id="tbContentInterfaces"/>
+	<dubbo:reference interface="com.alibaba.solr.interfaces.SolrItemInterfaces" id="solrItemInterfaces"/>
+
+    <dubbo:reference interface="com.alibaba.interfaces.TbItemService" id="tbItemService"/>
+    <dubbo:reference interface="com.alibaba.interfaces.TbItemDescService" id="tbItemDescService"/>
+</beans>

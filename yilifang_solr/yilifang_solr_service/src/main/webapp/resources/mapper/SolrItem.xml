@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.alibaba.solr.mapper.SolrItem" >
+<select id="getSolrItemList" resultType="com.alibaba.commons.bean.SolrItemBean">
+SELECT tb_item.id id,tb_item.title item_title,tb_item.sell_point item_sell_point,tb_item.price item_price,tb_item.image item_image,tb_item_cat.`name` item_category_name
+ FROM tb_item  JOIN tb_item_cat  ON tb_item.cid = tb_item_cat.id WHERE tb_item.`status` = 1
+</select>
+ <select id="getSolrItemBeanByID" resultType="com.alibaba.commons.bean.SolrItemBean" parameterType="long">
+  SELECT tb_item.id id,tb_item.title item_title,tb_item.sell_point item_sell_point,tb_item.price item_price,tb_item.image item_image,tb_item_cat.`name` item_category_name
+  FROM tb_item  JOIN tb_item_cat  ON tb_item.cid = tb_item_cat.id WHERE tb_item.`status` = 1
+AND tb_item.id = #{itemId}
+ </select>
+</mapper>

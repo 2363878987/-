@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- dtd文件是xml文件的约束文件，该dtd约束了可以使用哪些指定的标签 -->
+<!-- 配置 -->
+<configuration>
+	<plugins>
+		<plugin interceptor="com.github.pagehelper.PageHelper">
+			<!-- 分页方言 指明数据库的类型 -->
+			<property name="dialect" value="mysql"/>
+		</plugin>
+	</plugins>
+</configuration>

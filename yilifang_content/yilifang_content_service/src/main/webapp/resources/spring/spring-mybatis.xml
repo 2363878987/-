@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
+
+ <!-- mybatis的数据源交给spring的ioc容器来创建 -->
+ <!-- 读取工程下面的properties文件 -->
+ <context:property-placeholder location="classpath:jdbc/jdbc.properties" />
+
+ <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+<!-- sqlSessinFactory在mybatis单独使用的时候
+	咱们封装了一个工具类来获取该单例，但是和spring整合之后
+	完全交给spring的ioc容器来实例化该对象
+	-->
+	<!-- 让spring管理sqlsessionfactory 使用mybatis和spring整合包中的 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 数据库连接池 -->
+		<property name="dataSource" ref="dataSource" />
+		<!-- 加载mybatis的全局配置文件 -->
+		<property name="configLocation" value="classpath:/mybatis/mybatis.xml"/>
+		<!-- 加载mapper映射文件 -->
+		<property name="mapperLocations" value="classpath:/mapper/*.xml"/>
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.alibaba.mapper" />
+	</bean>
+
+
+	<!-- 项目的事务管理 控制在service层 -->
+    <!-- spring提供了声明式的事务管理器 -->
+    <!-- 1:创建一个事务管理器 -->
+<!--	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		&lt;!&ndash; 数据源 &ndash;&gt;
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	&lt;!&ndash; 2：配置事务的传播特性 (增强类的增强效果)&ndash;&gt;
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			&lt;!&ndash; 传播行为 &ndash;&gt;
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="select*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="find*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="get*" propagation="SUPPORTS" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+	
+	&lt;!&ndash; 配置切面 &ndash;&gt;
+	<aop:config>
+		<aop:advisor advice-ref="txAdvice"
+			pointcut="execution(* com.xiupeilian.car.service.impl.*.*(..))" />
+	</aop:config>-->
+
+
+
+
+
+  </beans>
