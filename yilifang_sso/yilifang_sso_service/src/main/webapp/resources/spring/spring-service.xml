@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
+
+	<!-- 配置包扫描器 -->
+	<context:component-scan base-package="com.alibaba.sso.service"/>
+	<!-- 配置dubbo服务提供者 -->
+	<dubbo:application name = "manager_service"/>
+	<!-- ip为启动zookeeper的虚拟机ip,:后的端口号不可修改 -->
+	<dubbo:registry  protocol = "zookeeper"
+	address = "192.168.25.129:2181"/>
+	<!-- 这里的端口20880可以进行修改避免端口占用冲突 -->
+	<dubbo:protocol name = "dubbo"  port = "20883"/>
+	<!-- 配置提供服务的接口 -->
+    <dubbo:service interface="com.alibaba.sso.interfaces.SSOInterface" ref="ssoInterface_Imp" timeout="60000"/>
+	<!--配置任务类  -->
+	<!-- <bean id="myJob" class="com.yitian.test.MyJob"></bean> -->
+	<!-- 注册任务类 -->
+	<!-- <bean id="myJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="myJob"></property>
+		<property name="targetMethod" value="test"></property>
+	</bean> -->
+	<!--配置触发器  -->
+	<!-- <bean id="myTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="myJobDetail"></property>
+		<property name="cronExpression" value="0/5 * * * * ?"></property>
+	</bean> -->
+	<!-- 配置scheduler -->
+	
+	<!-- <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="myTrigger"/>
+			</list>
+		</property>
+	</bean> -->
+	
+</beans>

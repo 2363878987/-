@@ -455,7 +455,7 @@ public class TbUserExample {
             return (Criteria) this;
         }
 
-        public Criteria andCreatedEqualTo(Date value) {
+        public Criteria andCreatedEqualTo(String value) {
             addCriterion("created =", value, "created");
             return (Criteria) this;
         }

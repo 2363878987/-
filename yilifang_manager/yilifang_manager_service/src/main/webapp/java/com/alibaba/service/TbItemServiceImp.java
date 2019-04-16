@@ -29,7 +29,7 @@ public class TbItemServiceImp implements TbItemService {
     public TbItem getItemById(long id) {
         //查询之前使用redis缓存
         try {
-            String content = jedisClient.get("itemContent");
+            String content = jedisClient.get("itemContent:"+id);
             if (StringUtils.isNotBlank(content)){
                 //如果有缓存就返回缓存中的数据
                 return JsonUtils.jsonToPojo(content,TbItem.class);
@@ -39,7 +39,7 @@ public class TbItemServiceImp implements TbItemService {
         }
         //如果没有缓存查询一遍数据库并添加缓存
         TbItem tbItem = tbItemMapper.selectByPrimaryKey(id);
-        jedisClient.set("itemContent",JsonUtils.objectToJson(tbItem));
+        jedisClient.set("itemContent:"+id,JsonUtils.objectToJson(tbItem));
         System.out.println("我是itemContent的数据");
         return tbItem;
     }

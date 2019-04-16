@@ -21,7 +21,7 @@ public class TbItemDescServiceImp implements TbItemDescService {
     public TbItemDesc getTbItemDescById(long id) {
         //查询之前使用redis缓存
         try {
-            String content = jedisClient.get("itemDescContent");
+            String content = jedisClient.get("itemDescContent:"+id);
             if (StringUtils.isNotBlank(content)){
                 //如果有缓存就返回缓存中的数据
                 return JsonUtils.jsonToPojo(content,TbItemDesc.class);
@@ -31,7 +31,7 @@ public class TbItemDescServiceImp implements TbItemDescService {
         }
         //如果没有缓存查询一遍数据库并添加缓存
         TbItemDesc tbItemDesc = tbItemDescMapper.selectByPrimaryKey(id);
-        jedisClient.set("itemDescContent",JsonUtils.objectToJson(tbItemDesc));
+        jedisClient.set("itemDescContent:"+id,JsonUtils.objectToJson(tbItemDesc));
         System.out.println("我是itemDescContent的数据");
         return tbItemDesc;
     }
