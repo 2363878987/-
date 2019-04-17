@@ -136,9 +136,11 @@
 			doLogin:function() {
 				$.post("/user/login", $("#formlogin").serialize(),function(data){
 					if (data.status == 200) {
+
 						jAlert('登录成功！',"提示", function(){
+/*                            location.href = "http://localhost:8085";*/
 							if (redirectUrl == "") {
-								location.href = "http://localhost:8082";
+								location.href = "http://localhost:8085";
 							} else {
 								location.href = redirectUrl;
 							}

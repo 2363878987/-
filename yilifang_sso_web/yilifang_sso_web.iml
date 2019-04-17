@@ -104,5 +104,6 @@
     <orderEntry type="library" name="Maven: fastdfs_client:fastdfs_client:1.25" level="project" />
     <orderEntry type="module" module-name="yilifang_sso_interfaces" />
     <orderEntry type="module" module-name="yilifang_manager_bean" />
+    <orderEntry type="library" name="Maven: javax.servlet:servlet-api:2.5" level="project" />
   </component>
 </module>
