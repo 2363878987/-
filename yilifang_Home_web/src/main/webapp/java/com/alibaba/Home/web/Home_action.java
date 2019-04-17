@@ -7,8 +7,6 @@ import com.alibaba.commons.bean.SorlBean;
 import com.alibaba.content.interfaces.TbContentInterfaces;
 import com.alibaba.interfaces.TbItemDescService;
 import com.alibaba.interfaces.TbItemService;
-import com.alibaba.mapper.ItemMapper;
-import com.alibaba.mapper.TbItemDescMapper;
 import com.alibaba.solr.interfaces.SolrItemInterfaces;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
