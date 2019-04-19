@@ -108,7 +108,7 @@ public class SsoInterface_Imp implements SSOInterface {
     public E3Result checkToken(String tokenID) {
         String user = jedisClient.get("Session:"+tokenID);
         if (StringUtils.isNotBlank(user)){
-            jedisClient.expire("Session:"+tokenID,30);
+            jedisClient.expire("Session:"+tokenID,300);
             /**这里为了避免在序列化E3Resut的时候把已经就是json格式的user再序列化
              * 造成序列化的重复也就造成了json格式出错娶不到值，也就会在页面上报undefined
              * 所以现在这里将这个user对象序列化，等controller 处理jsonp的时候再被反序列化一遍

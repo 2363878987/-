@@ -14,8 +14,7 @@ import java.util.List;
 @Service
 public class CartNoManInterface_Imp implements CartNoManInterface {
 
-    public List<TbItem> getCartListFromCookie(Object httpServletRequest){
-        String json = CookieUtils.getCookieValue((HttpServletRequest) httpServletRequest, "cart");
+    public List<TbItem> getCartListFromCookie(String json){
         //对于从数据库cookie等查询到的结果一般要进行非空验证
         //对于填写的信息要进行有效的验证
         //这是为了防止出现空指针，或非法数据类型等异常
@@ -24,7 +23,9 @@ public class CartNoManInterface_Imp implements CartNoManInterface {
         }
         return new ArrayList<TbItem>();
     }
-    @Override
+
+
+/*    @Override
     public List<TbItem> checkCookieFindCartList(long itemID, int num,HttpServletRequest request) {
         List<TbItem> list = new ArrayList<TbItem>();
         Boolean flag = true;
@@ -51,5 +52,5 @@ public class CartNoManInterface_Imp implements CartNoManInterface {
             list.add(item);
 
         return list;
-    }
+    }*/
 }

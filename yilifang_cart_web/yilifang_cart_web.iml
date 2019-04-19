@@ -17,6 +17,7 @@
           <file>file://$MODULE_DIR$/src/main/webapp/resources/spring/springmvc.xml</file>
         </fileset>
         <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/src/main/webapp/resources/spring/spring-jedis.xml</file>
           <file>file://$MODULE_DIR$/src/main/webapp/resources/spring/springmvc.xml</file>
         </fileset>
       </configuration>
@@ -114,5 +115,6 @@
     <orderEntry type="module" module-name="yilifang_manager_bean" />
     <orderEntry type="module" module-name="yilifang_manager_interfaces" />
     <orderEntry type="module" module-name="yilifang_manager_mapper" />
+    <orderEntry type="module" module-name="yilifang_sso_interfaces" />
   </component>
 </module>

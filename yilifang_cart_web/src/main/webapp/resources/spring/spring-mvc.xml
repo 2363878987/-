@@ -32,13 +32,27 @@
 <mvc:resources mapping="/js" location="/js/**"/>
 <mvc:resources mapping="/images" location="/images/**"/>
 
-<!-- 配置dubbo -->
-<dubbo:application name = "cart_web"/>
+	<!-- 配置dubbo -->
+	<dubbo:application name = "cart_web"/>
 
     <dubbo:registry protocol="zookeeper"
           address="192.168.25.129:2181"/>
 	<!-- 向zookeeper订阅服务 -->
     <dubbo:reference interface="com.alibaba.interfaces.TbItemService" id="tbItemService"/>
     <dubbo:reference interface="com.alibaba.cart.interfaces.CartNoManInterface" id="cartNoManInterface"/>
-
+	<dubbo:reference interface="com.alibaba.sso.interfaces.SSOInterface" id="SSOInterface"/>
+	<!--拦截器-->
+	    <mvc:interceptors>
+            <mvc:interceptor>
+<!--                 要拦截的请求-->
+                <mvc:mapping path="/**"/>
+<!--                 不做拦截的请求-->
+<!--                <mvc:exclude-mapping path="/login"/>
+                <mvc:exclude-mapping path="/goReg"/>
+                <mvc:exclude-mapping path="/reg"/>
+                <mvc:exclude-mapping path="/selectName"/>-->
+<!--                拦截后对请求处理的类-->
+                <bean class="com.alibaba.cart.interceptor.Login_Interceptor"/>
+            </mvc:interceptor>
+        </mvc:interceptors>
 </beans>
