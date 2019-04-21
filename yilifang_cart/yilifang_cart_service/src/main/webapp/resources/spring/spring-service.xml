@@ -21,6 +21,7 @@
 	<dubbo:protocol name = "dubbo"  port = "20884"/>
 	<!-- 配置提供服务的接口 -->
     <dubbo:service interface="com.alibaba.cart.interfaces.CartNoManInterface" ref="cartNoManInterface_Imp" timeout="60000"/>
+    <dubbo:service interface="com.alibaba.cart.interfaces.CartOnlineInterface" ref="cartOnlineInterface_Imp" timeout="60000"/>
 	<!--配置任务类  -->
 	<!-- <bean id="myJob" class="com.yitian.test.MyJob"></bean> -->
 	<!-- 注册任务类 -->
